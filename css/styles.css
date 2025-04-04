@@ -45,3 +45,9 @@ li {
     border-color: white;
     color: #f9f9f9;
 }
+
+.complete-btn {
+    margin-left: 5px;
+    background-color: green;
+    color: #f9f9f9;
+}

@@ -39,14 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
         tasks.forEach(
             task => {
                 const li = document.createElement('li');
+                li.className = 'flex justify-between items-center bg-gray-100 px-4 py-2 rounded';
                 li.innerHTML =
                     '<span>' + task.text + '</span>' +
-                    '<div>' +
-                    '<button class="complete-btn" onclick= "completeTask(' + task.id + ')">' +
+                    '<div class="space-x-2">' +
+                    '<button class="text-green-600 hover:underline" onclick= "completeTask(' + task.id + ')">' +
+                    'Completar </button>&nbsp'+
+                    '<button class="text-blue-600 hover:underline" onclick= "editTask(' + task.id + ')">' +
                     'Editar </button>&nbsp'+
-                    '<button class="edit-btn" onclick= "editTask(' + task.id + ')">' +
-                    'Editar </button>&nbsp'+
-                    '<button class="delete-btn" onclick= "deleteTask(' + task.id + ')">' +
+                    '<button class="text-red-600 hover:underline" onclick= "deleteTask(' + task.id + ')">' +
                     'Eliminar </button>' +
                     '</div>';
                 taskList.appendChild(li);

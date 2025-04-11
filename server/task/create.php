@@ -1,17 +1,31 @@
 <?php
-    $host = 'localhost';
-    $port = '5433';
-    $user = 'postgres';
-    $pass = '123456789';
-    $db_name = 'task_tool';
+require '../commons/db.php';
 
-    try {
-        $db = new PDO('pgsqñ:host=$host;port=$port;db_name=$db_name',
-        $user, $pass);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    } catch(PDOException $e) {
-        echo 'Error de conexion' . $e->getMessage();
-        exit();
+var_dump($_SERVER['REQUEST_METHOD']);
+var_dump($_POST);
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (
+    trim($_POST['title']) != '' &&
+    trim($_POST['user_id']) != '' &&
+    trim($_POST['category_id']) != ''
+    ) {
+        
+        $q = "INSERT INTO task.task(title, description, due_date, completed, user_id, category_id)";
+	    $q = $q . "VALUES (:title, :description, :due_date, :completed, :user_id, :category_id);";
+        $stmt = $db->prepare(($q));
+        $stmt->execute([
+            ":title" => $_POST["title"], 
+            ":description" => $_POST["description"],
+            ":due_date" => $_POST["due_date"],
+            ":completed" => $_POST["completed"],
+            ":user_id" => $_POST["user_id"],
+            "category_id" => $_POST["category_id"]
+        ]);
+
+        header("location: /full-task-manager");
+
+    }else {
+        echo 'Noooooooo pasa';
     }
+}
 ?>

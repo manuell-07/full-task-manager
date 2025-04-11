@@ -13,11 +13,54 @@
 <body>
     <main>
         <h1>Gestor de tareas</h1>
-        <div id="div-form">
-            <h2>Este es el formulario para hacer tareas</h2>
-            <input type="text" id="task-input" placeholder="Escriba una tarea" required />
-            <button id="task-form">Agregar</button>
-        </div>
+        <form action="server/task/index.php" method="post" class="my-form">
+            
+            <label for="title" class="field">
+                <span>
+                    <span class="req-field">*</span>
+                    Title: </span>
+                <input type="text" name="title" placeholder="title" id = "title" required/>
+            </label>
+
+
+            <label for="description" class="field">
+                <span>Description:</span>
+                <input type="text" name="description" placeholder="description" id = "description" />
+            </label>
+
+
+            <label for="due_date" class="field">
+                <span>Release date:</span>
+                <input type="date" name="due_date" placeholder="due date" id = "due_date"/>
+            </label>
+
+
+            <label for="completed" class="field cbx-g">
+                <span>Completed?</span>
+                <input !checked type="checkbox" name="completed" placeholder="completed" id = "completed"/>
+            </label>
+
+
+            <label for="user_id" class="field">
+                
+                <span>
+                    <span class="req-field">*</span>
+                    User id:</span>
+                <input type="number" name="user_id" placeholder="user id" id = "user_id" required/>
+            </label>
+
+
+            <label for="category_id" class="field">
+                
+                <span>
+                    <span class="req-field">*</span>
+                    Category id:</span>
+                <input type="number" name="category_id" placeholder="category_id" id = "category_id" required/>
+            </label>
+
+
+            <button type="submit">Enviar</button>
+        </form>
         <ul id="task-list"></ul>
     </main>
 </body>

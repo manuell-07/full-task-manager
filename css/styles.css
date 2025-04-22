@@ -52,6 +52,13 @@ li {
     color: #f9f9f9;
 }
 
+.completed {
+    background-color: #d4edda;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
 .my-form {
     max-width: 500px; 
     margin: 2rem auto;
@@ -122,4 +129,40 @@ li {
 .req-field {
     color: red;
     font-weight: bold;
+}
+
+/* Asegúrate de tener algo similar para la lista de tareas y categorías */
+#task-list, #category-list {
+    list-style: none;
+    padding: 0;
+}
+
+#task-list li, #category-list li {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#task-list li.completed {
+    background-color: #b2f2bb;
+}
+
+.div-btn button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #f0a500;
+}
+
+.delete-btn {
+    background-color: #ff3333;
+}
+
+.my-form {
+    margin-bottom: 20px;
 }

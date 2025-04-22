@@ -2,66 +2,53 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Task manager</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/styles.css" />
-    <script src="js/app.js"></script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Task Manager</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/styles.css'>
+    <script src='js/app.js'></script>
 </head>
 
 <body>
     <main>
         <h1>Gestor de tareas</h1>
-        <form action="server/task/create.php" method="post" class="my-form">
+        <a href="categoria.html" class="btn-link">+ Crear nueva categoría</a>
+
+        <form id="task-form" action="server/task/create.php" method="post" class="my-form">
+            <input type="hidden" name="id" id="task-id">
+
             
-            <label for="title" class="field">
-                <span>
-                    <span class="req-field">*</span>
-                    Title: </span>
-                <input type="text" name="title" placeholder="title" id = "title" required/>
+            <label class="field">
+                <span><span class="req-field">*</span>Title:</span>
+                <input type="text" name="title" placeholder="title" id="title" required />
             </label>
 
-
-            <label for="description" class="field">
+            <label class="field">
                 <span>Description:</span>
-                <input type="text" name="description" placeholder="description" id = "description" />
+                <input type="text" name="description" placeholder="description" id="description" />
             </label>
 
-
-            <label for="due_date" class="field">
+            <label class="field">
                 <span>Release date:</span>
-                <input type="date" name="due_date" placeholder="due date" id = "due_date"/>
+                <input type="date" name="due_date" placeholder="due date" id="due_date" />
             </label>
 
-
-            <label for="completed" class="field cbx-g">
+            <label class="field cbx-g">
                 <span>Completed?</span>
-                <input !checked type="checkbox" name="completed" placeholder="completed" id = "completed"/>
+                <input type="checkbox" name="completed" id="completed" />
             </label>
 
-
-            <label for="user_id" class="field">
-                
-                <span>
-                    <span class="req-field">*</span>
-                    User id:</span>
-                <input type="number" name="user_id" placeholder="user id" id = "user_id" required/>
+            <label class="field">
+                <span><span class="req-field">*</span>Category id:</span>
+                <input type="number" name="category_id" placeholder="category_id" id="category_id" required />
             </label>
 
-
-            <label for="category_id" class="field">
-                
-                <span>
-                    <span class="req-field">*</span>
-                    Category id:</span>
-                <input type="number" name="category_id" placeholder="category_id" id = "category_id" required/>
-            </label>
-
-
-            <button type="submit">Enviar</button>
+            <button type="submit" id="submit-btn">Enviar</button>
         </form>
+
         <ul id="task-list"></ul>
+        
     </main>
 </body>
 

@@ -7,48 +7,69 @@
     <title>Task Manager</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/styles.css'>
-    <script src='js/app.js'></script>
+    <script src='js/app.js' defer></script>
 </head>
 
 <body>
     <main>
-        <h1>Gestor de tareas</h1>
-        <a href="categoria.html" class="btn-link">+ Crear nueva categoría</a>
+        <h1>Gestor de Tareas</h1>
 
-        <form id="task-form" action="server/task/create.php" method="post" class="my-form">
-            <input type="hidden" name="id" id="task-id">
+        <!-- Botones para mostrar las vistas de Tareas y Categorías -->
+        <button id="show-tasks-btn">Ver Tareas</button>
+        <button id="show-categories-btn">Ver Categorías</button>
 
-            
-            <label class="field">
-                <span><span class="req-field">*</span>Title:</span>
-                <input type="text" name="title" placeholder="title" id="title" required />
-            </label>
+        <!-- Sección de Tareas (visible por defecto) -->
+        <div id="task-section">
+            <h2>Formulario de Tarea</h2>
+            <form id="task-form" action="server/task/create.php" method="post" class="my-form">
+                <input type="hidden" name="id" id="task-id">
+                <label class="field">
+                    <span><span class="req-field">*</span>Title:</span>
+                    <input type="text" name="title" placeholder="title" id="title" required />
+                </label>
+                <label class="field">
+                    <span>Description:</span>
+                    <input type="text" name="description" placeholder="description" id="description" />
+                </label>
+                <label class="field">
+                    <span>Release date:</span>
+                    <input type="date" name="due_date" placeholder="due date" id="due_date" />
+                </label>
+                <label class="field cbx-g">
+                    <span>Completed?</span>
+                    <input type="checkbox" name="completed" id="completed" />
+                </label>
+                <label class="field">
+                    <span><span class="req-field">*</span>Category id:</span>
+                    <input type="number" name="category_id" placeholder="category_id" id="category_id" required />
+                </label>
+                <button type="submit" id="submit-btn">Enviar</button>
+            </form>
 
-            <label class="field">
-                <span>Description:</span>
-                <input type="text" name="description" placeholder="description" id="description" />
-            </label>
+            <!-- Lista de tareas -->
+            <ul id="task-list"></ul>
+        </div>
 
-            <label class="field">
-                <span>Release date:</span>
-                <input type="date" name="due_date" placeholder="due date" id="due_date" />
-            </label>
+        <!-- Sección de Categorías (oculta por defecto) -->
+        <div id="category-section" style="display: none;">
+            <h2>Formulario de Categoría</h2>
+            <form id="category-form" action="server/category/update.php" method="post" class="my-form">
+                <input type="hidden" name="id" id="category-id">
+                <label class="field">
+                    <span><span class="req-field">*</span>Category Name:</span>
+                    <input type="text" name="name" placeholder="Category name" id="category-name" required />
+                </label>
+                <label class="field">
+                    <span><span class="req-field">*</span>Category ID:</span>
+                    <input type="number" name="category_id" placeholder="Category ID" id="category-id" required />
+                </label>
+                
+                <button type="submit" id="submit-category-btn">Guardar</button>
+            </form>
 
-            <label class="field cbx-g">
-                <span>Completed?</span>
-                <input type="checkbox" name="completed" id="completed" />
-            </label>
-
-            <label class="field">
-                <span><span class="req-field">*</span>Category id:</span>
-                <input type="number" name="category_id" placeholder="category_id" id="category_id" required />
-            </label>
-
-            <button type="submit" id="submit-btn">Enviar</button>
-        </form>
-
-        <ul id="task-list"></ul>
-        
+            <!-- Lista de categorías -->
+            <ul id="category-list"></ul>
+        </div>
     </main>
 </body>
 

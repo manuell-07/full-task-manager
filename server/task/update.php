@@ -17,7 +17,7 @@ if (!$id) {
 
 try {
     // ✅ Marcar tarea como completada (completed = 1)
-    $stmt = $pdo->prepare("UPDATE task.task SET completed = 1 WHERE id = ? AND user_id = ?");
+    $stmt = $pdo->prepare("UPDATE task.task SET completed = TRUE WHERE id = ? AND user_id = ?");
     $stmt->execute([$id, $user_id]);
 
     echo json_encode(['success' => true]);

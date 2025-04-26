@@ -62,8 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        
-
         if (e.target.classList.contains('edit-btn')) {
             const task = await fetch('server/task/index.php');
             const tasks = await task.json();
@@ -91,4 +89,83 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     loadTasks();
+
+    // Aquí comenzamos con la parte de cambiar la vista de tareas y categorías
+    const taskSection = document.getElementById("task-section");
+    const categorySection = document.getElementById("category-section");
+    const showTasksBtn = document.getElementById("show-tasks-btn");
+    const showCategoriesBtn = document.getElementById("show-categories-btn");
+
+    showTasksBtn.addEventListener("click", () => {
+        taskSection.style.display = "block";
+        categorySection.style.display = "none";
+    });
+
+    showCategoriesBtn.addEventListener("click", () => {
+        taskSection.style.display = "none";
+        categorySection.style.display = "block";
+    });
+
+    // Cargar categorías al inicio
+    const loadCategories = async () => {
+        const res = await fetch('server/category/index.php');
+        const categories = await res.json();
+
+        const categoryList = document.getElementById('category-list');
+        categoryList.innerHTML = '';
+        categories.forEach(category => {
+            const li = document.createElement('li');
+            li.dataset.id = category.id;
+            li.innerHTML = `
+                <span><strong>${category.name}</strong></span>
+                <div class="div-btn">
+                    <button class="edit-btn">Editar</button>
+                    <button class="delete-btn">Eliminar</button>
+                </div>
+            `;
+            categoryList.appendChild(li);
+        });
+    };
+
+    // Cargar categorías al iniciar
+    loadCategories();
+
+    const categoryForm = document.getElementById("category-form");
+    const submitCategoryBtn = document.getElementById("submit-category-btn");
+
+    categoryForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(categoryForm);
+        await fetch("server/category/create.php", {
+            method: "POST",
+            body: formData,
+        });
+        categoryForm.reset();
+        submitCategoryBtn.textContent = "Enviar";
+        loadCategories();
+    });
+
+    document.getElementById("category-list").addEventListener("click", async (e) => {
+        const li = e.target.closest("li");
+        const id = li.dataset.id;
+
+        if (e.target.classList.contains("edit-btn")) {
+            const res = await fetch("server/category/index.php");
+            const categories = await res.json();
+            const current = categories.find((c) => c.id == id);
+
+            document.getElementById("category-name").value = current.name;
+            document.getElementById("category-id").value = current.id;
+            submitCategoryBtn.textContent = "Guardar";
+        }
+
+        if (e.target.classList.contains("delete-btn")) {
+            await fetch("server/category/delete.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `id=${id}`,
+            });
+            loadCategories();
+        }
+    });
 });
